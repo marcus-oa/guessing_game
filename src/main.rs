@@ -1,36 +1,22 @@
+mod fahrenheit_celcius;
+mod guessing_game;
+
+use guessing_game::guessing_game;
+use fahrenheit_celcius::temp_converter;
 use std::io;
-use rand::Rng;
-use std::cmp::Ordering;
 
 fn main() {
-    println!("Guess the number!");
+    println!("Guessing game or converter? (G/C)");
+    let mut answer = String::new();
 
-    let secret_number =
-        rand::thread_rng().gen_range(1,101);
+    io::stdin()
+        .read_line(&mut answer)
+        .expect("Failed to read line");
 
-    loop {
-        println!("Please input your guess.");
-
-        let mut guess = String::new();
-
-        io::stdin()
-            .read_line(&mut guess)
-            .expect("Failed to read line");
-
-        let guess: u32 = match guess.trim().parse() {
-            Ok(num) => dbg!(num),
-            Err(_) => continue,
-        };
-
-        println!("You guessed: {}", guess);
-
-        match guess.cmp(&secret_number) {
-            Ordering::Less => println!("Too small!"),
-            Ordering::Greater => println!("Too big!"),
-            Ordering::Equal => {
-                println!("You win!");
-                break;
-            },
-        }
+    if answer.trim() == "G" {
+        guessing_game()
+    }
+    else {
+        temp_converter()
     }
 }
