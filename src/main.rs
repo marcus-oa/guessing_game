@@ -3,12 +3,14 @@ mod guessing_game;
 mod nth_fibonacci;
 mod twelve_days_of_christmas;
 mod ownership;
+mod structs;
 
 use guessing_game::guessing_game;
 use fahrenheit_celcius::temp_converter;
 use nth_fibonacci::get_fibonacci;
 use twelve_days_of_christmas::print_carol;
 use ownership::{ownership_tests};
+use structs::{print_rectangle_area,print_rectangle_area_rfct};
 use std::io;
 
 // Main
@@ -35,5 +37,8 @@ fn main() {
     }*/
 
     // Ownership
-    ownership_tests();
+    //ownership_tests();
+
+    print_rectangle_area();
+    print_rectangle_area_rfct()
 }
