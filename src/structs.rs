@@ -21,6 +21,28 @@ struct Rectangle {
     height: u32,
 }
 
+// area methods for Rectangle Struct
+impl Rectangle {
+    fn area(&self) -> u32 {
+        self.width * self.height
+    }
+
+    // Demonstrates multiple parameters for methods invoked on
+    // Struct type self
+    fn can_fit(&self, other: &Rectangle) -> bool {
+        self.width > other.width && self.height > other.height
+    }
+
+    // Example of an Associated function
+    // Often used as constructors for the Struct they implement
+    // Differentiated by the fact they don't take a reference
+    // of self as a parameter
+    fn square(size: u32) -> Rectangle {
+        width: size,
+        height: size,
+    }
+}
+
 // Generic function
 pub(crate) fn fun() {
     
@@ -85,21 +107,37 @@ fn area_rfct(rectangle: &Rectangle) -> u32 {
 // Refactor of ->  print_rectangle_area
 // Utilizing tuples
 pub(crate) fn print_rectangle_area_rfct() {
-    let rect1 = Rectangle{
+    let rect1 = Rectangle {
         width: 30,
         height: 50,
     };
 
+    let rect2 = Rectangle {
+        width: 10,
+        height: 40,
+    };
+
+    let rect3 = Rectangle {
+        width: 60,
+        height: 45,
+    };
+
     println! (
         "The area of the rectangle is {} square pixels.",
-        area_rfct(&rect1)
+        // Refactored with the method implementation
+        // of area for the Rectangle Struct
+        // area_rfct(&rect1)
+        rect1.area()
     );
 
-    // rect1 println derived from the struct
+    // rect1 println derived from the Struct
     println! (
         "rect1 is {:#?}",
         rect1
     );
+
+    println!("Can rect1 fit in rect2? {}", rect1.can_fit(&rect2));
+    println!("Can rect1 fit in rect3? {}", rect1.can_fit(&rect3));
 }
 
 
