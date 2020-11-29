@@ -38,8 +38,10 @@ impl Rectangle {
     // Differentiated by the fact they don't take a reference
     // of self as a parameter
     fn square(size: u32) -> Rectangle {
-        width: size,
-        height: size,
+        Rectangle {
+            width: size,
+            height: size,
+        }
     }
 }
 
