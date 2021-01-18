@@ -6,6 +6,7 @@ mod ownership;
 mod structs;
 mod enums;
 mod pattern_matching;
+mod strings;
 
 use guessing_game::guessing_game;
 use fahrenheit_celcius::temp_converter;
@@ -16,6 +17,7 @@ use structs::{print_rectangle_area,print_rectangle_area_rfct};
 use enums::main_c;
 use pattern_matching::match_examples;
 use std::io;
+use strings::string_examples;
 
 // Main
 fn main() {
@@ -41,10 +43,16 @@ fn main() {
     }*/
 
     // Ownership
-    //ownership_tests();
+    // ownership_tests();
 
+    /*
     print_rectangle_area();
     print_rectangle_area_rfct();
     main_c();
     match_examples();
+    */
+
+    // Strings.rs
+    string_examples();
+
 }
