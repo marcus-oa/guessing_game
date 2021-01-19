@@ -7,6 +7,7 @@ mod structs;
 mod enums;
 mod pattern_matching;
 mod strings;
+mod hash_maps;
 
 use guessing_game::guessing_game;
 use fahrenheit_celcius::temp_converter;
@@ -18,6 +19,7 @@ use enums::main_c;
 use pattern_matching::match_examples;
 use std::io;
 use strings::string_examples;
+use crate::hash_maps::hashmap_example;
 
 // Main
 fn main() {
@@ -53,6 +55,9 @@ fn main() {
     */
 
     // Strings.rs
-    string_examples();
+    //string_examples();
+
+    //hash_map.rs
+    hashmap_example()
 
 }
