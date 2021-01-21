@@ -9,6 +9,7 @@ mod pattern_matching;
 mod strings;
 mod hash_maps;
 mod errors;
+mod generics;
 
 use guessing_game::guessing_game;
 use fahrenheit_celcius::temp_converter;
@@ -22,6 +23,7 @@ use std::io;
 use strings::string_examples;
 use hash_maps::hashmap_example;
 use errors::{errors_examples,errors_examples2};
+use generics::{largest_generic,impl_generic_example};
 
 // Main
 fn main() {
@@ -64,6 +66,10 @@ fn main() {
 
     //errors.rs
     //errors_examples()
-    errors_examples()
+    //errors_examples()
+
+    //generics.rs
+    largest_generic();
+    impl_generic_example()
 
 }
