@@ -69,10 +69,10 @@ fn largest_char(list: &[char]) -> &char {
 // <T: std::cmp::PartialOrd> = Bounds generic type T to
 // only work on types that implement PartialOrd
 // Errors otherwise
-fn largest<T: std::cmp::PartialOrd>(list: &[T]) -> &T {
-    let mut largest = &list[0];
+fn largest<T: PartialOrd + Copy>(list: &[T]) -> T {
+    let mut largest = list[0];
 
-    for item in list {
+    for &item in list {
         if item > largest {
             largest = item;
         }

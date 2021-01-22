@@ -143,7 +143,47 @@ fn return_summarizable() -> impl Summary {
     }
 }
 
+// Struct built for using trait bounds to
+// conditionally implement methods
+struct Pair<T> {
+    x: T,
+    y: T,
+}
 
+// All types of T can impl 'new'
+impl<T> Pair<T> {
+    fn new(x: T, y: T) -> Self {
+        Self {x, y}
+    }
+}
+
+// example of conditional bound which requires the
+// inner types of Pair to impl Display + PartialOrd
+// to use the function
+impl<T: Display + PartialOrd> Pair<T> {
+    fn cmp_display(&self) {
+        if self.x >= self.y {
+            println!("The largest member is x = {}", self.x);
+        } else {
+            println!("The largest number is y = {}", self.y);
+        }
+
+    }
+}
+
+// example of conditionally implementing a trait for any type
+// Note: From std library
+/*
+impl<T: Display> ToString for T {
+    fn to_string(&self) -> String {
+        unimplemented!()
+    }
+}
+
+fn dummy() {
+    let s = 3.to_string();
+}
+ */
 
 
 
