@@ -10,6 +10,7 @@ mod strings;
 mod hash_maps;
 mod errors;
 mod generics;
+mod traits;
 
 use guessing_game::guessing_game;
 use fahrenheit_celcius::temp_converter;
@@ -24,6 +25,7 @@ use strings::string_examples;
 use hash_maps::hashmap_example;
 use errors::{errors_examples,errors_examples2};
 use generics::{largest_generic,impl_generic_example,different_types_example};
+use traits::traits_example;
 
 // Main
 fn main() {
@@ -72,4 +74,7 @@ fn main() {
     //largest_generic();
     //impl_generic_example();
     //different_types_example()
+
+    //traits.rs
+    traits_example()
 }
