@@ -23,7 +23,7 @@ use std::io;
 use strings::string_examples;
 use hash_maps::hashmap_example;
 use errors::{errors_examples,errors_examples2};
-use generics::{largest_generic,impl_generic_example};
+use generics::{largest_generic,impl_generic_example,different_types_example};
 
 // Main
 fn main() {
@@ -69,7 +69,7 @@ fn main() {
     //errors_examples()
 
     //generics.rs
-    largest_generic();
-    impl_generic_example()
-
+    //largest_generic();
+    //impl_generic_example();
+    //different_types_example()
 }

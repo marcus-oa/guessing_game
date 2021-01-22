@@ -155,6 +155,29 @@ impl<T> Point<T> {
     }
 }
 
+// A function implementation for Point
+// which only applies to 'of type f32' values
+// Other types T will not have this impl
+// and therefore will not have the functions
+// it provides
+impl Point<f32> {
+    fn distance_from_origin(&self) -> f32 {
+        (self.x.powi(2) + self.y.powi(2)).sqrt()
+    }
+}
+
+// example of the a struct impl method having signatures different
+// to the generic struct type
+impl<T, U> Point2<T,U> {
+    fn mixup<V, W>(self, other: Point2<V, W>) -> Point2<T, W> {
+        Point2 {
+            x: self.x,
+            y: other.y,
+        }
+    }
+}
+
+
 fn structs_example_with_mixed_coordinate_types() {
     let both_integer = Point2 { x: 5, y: 10 };
     let both_float = Point2 { x: 1.0, y: 4.0 };
@@ -165,4 +188,13 @@ pub(crate) fn impl_generic_example() {
     let p = Point { x: 5, y: 10 };
 
     println!("p.x = {}", p.x());
+}
+
+pub(crate) fn different_types_example() {
+    let p1 = Point2 { x: 5, y: 10.0 };
+    let p2 = Point2 { x: "Hello", y: 'c' };
+
+    let p3 = p1.mixup(p2);
+
+    println!("p3.x = {}, p3.y = {}", p3.x, p3.y)
 }
