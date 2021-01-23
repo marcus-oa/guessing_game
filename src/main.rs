@@ -11,6 +11,7 @@ mod hash_maps;
 mod errors;
 mod generics;
 mod traits;
+mod lifetimes;
 
 use guessing_game::guessing_game;
 use fahrenheit_celcius::temp_converter;
@@ -26,6 +27,7 @@ use hash_maps::hashmap_example;
 use errors::{errors_examples,errors_examples2};
 use generics::{largest_generic,impl_generic_example,different_types_example};
 use traits::traits_example;
+use lifetimes::{lifetime_example1,lifetime_example2,lifetime_example3};
 
 // Main
 fn main() {
@@ -76,5 +78,10 @@ fn main() {
     //different_types_example()
 
     //traits.rs
-    traits_example()
+    //traits_example()
+
+    //lifetimes.rs
+    //lifetime_example1();
+    lifetime_example2();
+    lifetime_example3();
 }
