@@ -13,6 +13,7 @@ mod generics;
 mod traits;
 mod lifetimes;
 mod closures;
+mod iterators;
 
 use guessing_game::guessing_game;
 use fahrenheit_celcius::temp_converter;
@@ -30,7 +31,7 @@ use generics::{largest_generic,impl_generic_example,different_types_example};
 use traits::traits_example;
 use lifetimes::{lifetime_example1,lifetime_example2,lifetime_example3};
 use closures::{simulated_expensive_calculation,generate_workout};
-
+//use iterators::iterator_demonstration;
 // Main
 fn main() {
     /* CHAPTER 3 EXERCISES
@@ -88,7 +89,10 @@ fn main() {
     //lifetime_example3();
 
     //closures.rs
-    let simulated_user_specified_value = 10;
-    let simulated_random_number = 7;
-    generate_workout(simulated_user_specified_value, simulated_random_number);
+    //let simulated_user_specified_value = 10;
+    //let simulated_random_number = 7;
+    //generate_workout(simulated_user_specified_value, simulated_random_number);
+
+    //iterators.rs
+
 }
