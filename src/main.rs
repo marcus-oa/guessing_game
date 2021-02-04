@@ -14,6 +14,7 @@ mod traits;
 mod lifetimes;
 mod closures;
 mod iterators;
+mod smart_pointers;
 
 use guessing_game::guessing_game;
 use fahrenheit_celcius::temp_converter;
@@ -31,6 +32,7 @@ use generics::{largest_generic,impl_generic_example,different_types_example};
 use traits::traits_example;
 use lifetimes::{lifetime_example1,lifetime_example2,lifetime_example3};
 use closures::{simulated_expensive_calculation,generate_workout};
+use smart_pointers::box_example;
 //use iterators::iterator_demonstration;
 // Main
 fn main() {
@@ -94,5 +96,9 @@ fn main() {
     //generate_workout(simulated_user_specified_value, simulated_random_number);
 
     //iterators.rs
+    //no runnable examples
+
+    //smart_pointers.rs
+    box_example();
 
 }
