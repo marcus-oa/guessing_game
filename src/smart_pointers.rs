@@ -4,11 +4,13 @@
 
 use crate::smart_pointers::List::{Cons, Nil};
 use std::ops::Deref;
+use std::rc::Rc;
 
 // Attempt at enum to represent a cons list data struct
 // of type i32
 enum List {
-    Cons(i32, Box<List>),
+    // Changed from Box to rx for ch15-04-rc
+    Cons(i32, Rc<List>),
     Nil,
 }
 pub fn box_example() {
@@ -24,7 +26,8 @@ pub fn cons_example() {
     // Fails with 'Cons(i32, List)' -> Cons(1, Cons(2, Cons(3, Nil)))
     // implementation of enum
     // as it can't discern the size of the enum
-    let list = Cons(1, Box::new(Cons(2, Box::new(Cons(3, Box::new(Nil))))));
+    // Note: Changed from Box to Rc for the examples in ch15-05-rc
+    let list = Cons(1, Rc::new(Cons(2, Rc::new(Cons(3, Rc::new(Nil))))));
 }
 
 //-------------------------------------------------------------------------------------------
@@ -122,4 +125,23 @@ pub fn drop_example() {
     // This is valid however, as it calls the std::mem:drop function
     drop(c);
     println!("CustomSmartPointer dropped before the end of fn")
+}
+
+//-------------------------------------------------------------------------------------------
+//---------------- ch15-04-rc ---------------------
+//-------------------------------------------------------------------------------------------
+
+// Conceptually the example about to b show looks like this
+// b ------> |3| |
+//               \
+//     a ------> |5| |----->|10| |------->|Nil|
+//               /
+// c ------> |4| |
+
+fn rc_example() {
+    // required to be created as a Rc::new instance instead of Cons(x,..) to be referenced
+    let a = Rc::new(Cons(5, Rc::new(Cons(10, Rc::new(Nil)))));
+    // Note: Rc::clone only increases the reference count
+    let b = Cons(3, Rc::clone(&a));
+    let c = Cons(4, Rc::clone(&a));
 }
