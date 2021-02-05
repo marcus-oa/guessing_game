@@ -87,3 +87,39 @@ pub fn deref_coercion_example() {
     // &MyBox<T> -> &String -> &str
     hello(&m);
 }
+
+//-------------------------------------------------------------------------------------------
+//---------------- ch15-03-drop ---------------------
+//-------------------------------------------------------------------------------------------
+
+// Simple strut to display example
+struct CustomSmartPointer {
+    data: String,
+}
+
+// Implementing the Drop trait and it's single fn 'drop'
+impl Drop for CustomSmartPointer {
+    fn drop(&mut self) {
+        println!("Dropping CustomerSmartPointer with data `{}`", self.data)
+    }
+}
+
+pub fn drop_example() {
+    let c = CustomSmartPointer {
+        data: String::from("my stuff"),
+    };
+    let d = CustomSmartPointer {
+        data: String::from("other stuff"),
+    };
+    println!("CustomerSmartPointers created");
+    // Rust will automatically call drop here when the values 'c' and 'd'
+    // go out of scope thus printing the message in the implemented drop
+    // function
+
+    // The below isn't allowed as explicit calls to the destructor drop aren't valid
+    // c.drop();
+
+    // This is valid however, as it calls the std::mem:drop function
+    drop(c);
+    println!("CustomSmartPointer dropped before the end of fn")
+}
