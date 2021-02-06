@@ -151,3 +151,116 @@ pub fn rc_example() {
     }
     println!("count after c goes out of scope = {}", Rc::strong_count(&a));
 }
+
+//-------------------------------------------------------------------------------------------
+//---------------- ch15-05-interior-mutability ---------------------
+//-------------------------------------------------------------------------------------------
+
+fn int_mut_example() {
+    let x = 5;
+    // borrowing rules ensure you can't borrow a immutable value mutably
+    // let y = &mut x;
+}
+
+// interior mutability example below
+pub trait Messenger {
+    fn send(&self, msg: &str);
+}
+
+pub struct LimitTracker<'a, T: Messenger> {
+    messenger: &'a T,
+    value : usize,
+    max: usize,
+}
+
+impl <'a, T> LimitTracker<'a, T>
+where
+    T: Messenger,
+{
+    pub fn new(messenger: &T, max: usize) -> LimitTracker<T> {
+        LimitTracker {
+            messenger,
+            value: 0,
+            max,
+        }
+    }
+
+    pub fn set_value(&mut self, value: usize) {
+        self.value = value;
+
+        let percentage_from_max = self.value as f64 / self.max as f64;
+
+        if percentage_from_max >= 1.0 {
+            self.messenger.send("Error: You are over your quota!");
+        } else if percentage_from_max >= 0.9 {
+            self.messenger.send("Urgent warning: You've used up over 90% of the quota!");
+        } else if percentage_from_max >= 0.75 {
+            self.messenger.send("Warning: You've used up over 75% of the quota!");
+        }
+
+    }
+}
+
+// example to test interface
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use std::cell::RefCell;
+    use std::borrow::Borrow;
+
+    struct MockMessenger {
+        sent_messages: RefCell<Vec<String>>,
+    }
+
+    impl MockMessenger {
+        fn new() -> MockMessenger {
+            MockMessenger {
+                sent_messages: RefCell::new(vec![]),
+            }
+        }
+    }
+
+    impl Messenger for MockMessenger {
+        fn send(&self, message: &str) {
+            // borrow_mut gets a mutable borrow of the type within self which is a RefCell of vec
+            self.sent_messages.borrow_mut().push(String::from(message));
+        }
+    }
+    #[test]
+    fn it_sends_an_over_75_percent_warning_message() {
+        let mock_messenger = MockMessenger::new();
+        let mut limit_tracker = LimitTracker::new(&mock_messenger, 100);
+
+        limit_tracker.set_value(80);
+        // borrow here performs an immutable borow of the RefCell sent_messages to allow calling len (unwrapping)
+        assert_eq!(mock_messenger.sent_messages.borrow().len(), 1);
+    }
+}
+
+// Using Rc and RefCell to have multiple reference to immutable data which can be Mutated!
+use std::cell::RefCell;
+use crate::smart_pointers::List2::{Cons2,Nil2};
+
+// example of List implemented above with RefCell wrapping value stored in Rc
+#[derive(Debug)]
+enum List2 {
+    Cons2(Rc<RefCell<i32>>, Rc<List2>),
+    Nil2
+}
+
+pub fn rc_and_refcall_example() {
+    use crate::smart_pointers::List2;
+
+    let value = Rc::new(RefCell::new(5));
+
+    let a = Rc::new(Cons2(Rc::clone(&value), Rc::new(Nil2)));
+    let b = Cons2(Rc::new(RefCell::new(3)), Rc::clone(&a));
+    let c = Cons2(Rc::new(RefCell::new(4)), Rc::clone(&a));
+
+    *value.borrow_mut() += 10;
+
+    println!("a after = {:?}", a);
+    println!("b after = {:?}", b);
+    println!("c after = {:?}", c);
+
+}

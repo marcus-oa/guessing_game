@@ -32,7 +32,7 @@ use generics::{largest_generic,impl_generic_example,different_types_example};
 use traits::traits_example;
 use lifetimes::{lifetime_example1,lifetime_example2,lifetime_example3};
 use closures::{simulated_expensive_calculation,generate_workout};
-use smart_pointers::{box_example,deref_example,drop_example,rc_example};
+use smart_pointers::{box_example,deref_example,drop_example,rc_example,rc_and_refcall_example};
 //use iterators::iterator_demonstration;
 // Main
 fn main() {
@@ -102,6 +102,7 @@ fn main() {
     //box_example();
     //deref_example();
     //drop_example();
-    rc_example();
+    //rc_example();
+    rc_and_refcall_example();
 
 }
