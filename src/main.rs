@@ -16,6 +16,7 @@ mod closures;
 mod iterators;
 mod smart_pointers;
 mod reference_cycles;
+mod concurrency;
 
 use guessing_game::guessing_game;
 use fahrenheit_celcius::temp_converter;
@@ -39,6 +40,10 @@ use smart_pointers::
  drop_example,
  rc_example,rc_and_refcall_example};
 use reference_cycles::{ref_cycle_example, node_example};
+use concurrency::
+{thread_example_one,
+ thread_example_two,
+ move_thread_example};
 
 // Main
 fn main() {
@@ -112,7 +117,12 @@ fn main() {
     //rc_and_refcall_example();
 
     //reference_cycles.rs
-    ref_cycle_example();
-    node_example();
+    //ref_cycle_example();
+    //node_example();
+
+    //concurrency.rs
+    thread_example_one();
+    thread_example_two();
+    move_thread_example();
 
 }
