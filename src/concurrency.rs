@@ -65,7 +65,7 @@ pub fn move_thread_example() {
 //---------------- ch16-02-message-passing ---------------------
 //-------------------------------------------------------------------------------------------
 
-use std::sync::mpsc;
+use std::sync::{mpsc, Arc};
 
 pub fn message_passing_example() {
     // creates a transaction sender and transaction receiver from
@@ -161,4 +161,54 @@ pub fn multi_message_sending_example() {
     for received in rx {
         println!("Got: {}", received);
     }
+}
+
+//-------------------------------------------------------------------------------------------
+//---------------- ch16-03-shared-state ---------------------
+//-------------------------------------------------------------------------------------------
+
+use std::sync::Mutex;
+use std::rc::Rc;
+
+// example of using a mutual exclusive and a lock
+// on the thread
+pub fn mutex_example() {
+    let m = Mutex::new(5);
+
+    {
+        // lock usage means we lock the thread to using this mutex
+        // no other thread can use but seeing as this is a one thread main
+        // theres no difference to using a mutex or not here (until
+        // we introduce threads)
+        let mut num = m.lock().unwrap();
+        *num = 6;
+    }
+
+    println!("m = {:?}", m);
+}
+
+// example of sharing state across multiple threads using
+// a mutual exclusive value we want to change and Arc
+// (Atomic Reference counter) which allows multiple atomic references
+// that work in thread safe ways when multiple threads access them
+// Similiar to Rc but atomic!
+pub fn shared_mutex_thread_example() {
+    let counter = Arc::new(Mutex::new(0));
+    let mut handles = vec![];
+
+    for _ in 0..10 {
+        let counter = Arc::clone(&counter);
+        let handle = thread::spawn(move || {
+            let mut num = counter.lock().unwrap();
+
+            *num += 1;
+        });
+        handles.push(handle)
+    }
+
+    for handle in handles {
+        handle.join().unwrap();
+    }
+
+    println!("Result: {}", *counter.lock().unwrap());
 }

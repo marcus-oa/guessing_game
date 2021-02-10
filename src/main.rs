@@ -46,7 +46,9 @@ use concurrency::
  move_thread_example,
  message_passing_example,
  message_passing_example_two,
- multi_message_sending_example};
+ multi_message_sending_example,
+ mutex_example,
+ shared_mutex_thread_example};
 
 // Main
 fn main() {
@@ -130,4 +132,6 @@ fn main() {
     message_passing_example();
     message_passing_example_two();
     multi_message_sending_example();
+    mutex_example();
+    shared_mutex_thread_example();
 }
