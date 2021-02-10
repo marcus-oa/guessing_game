@@ -43,7 +43,10 @@ use reference_cycles::{ref_cycle_example, node_example};
 use concurrency::
 {thread_example_one,
  thread_example_two,
- move_thread_example};
+ move_thread_example,
+ message_passing_example,
+ message_passing_example_two,
+ multi_message_sending_example};
 
 // Main
 fn main() {
@@ -121,8 +124,10 @@ fn main() {
     //node_example();
 
     //concurrency.rs
-    thread_example_one();
-    thread_example_two();
-    move_thread_example();
-
+    //thread_example_one();
+    //thread_example_two();
+    //move_thread_example();
+    message_passing_example();
+    message_passing_example_two();
+    multi_message_sending_example();
 }
