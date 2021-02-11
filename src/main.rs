@@ -17,6 +17,7 @@ mod iterators;
 mod smart_pointers;
 mod reference_cycles;
 mod concurrency;
+mod object_oriented;
 
 use guessing_game::guessing_game;
 use fahrenheit_celcius::temp_converter;
