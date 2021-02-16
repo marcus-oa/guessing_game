@@ -18,6 +18,7 @@ mod smart_pointers;
 mod reference_cycles;
 mod concurrency;
 mod object_oriented;
+mod blog;
 
 use guessing_game::guessing_game;
 use fahrenheit_celcius::temp_converter;
@@ -50,6 +51,8 @@ use concurrency::
  multi_message_sending_example,
  mutex_example,
  shared_mutex_thread_example};
+
+use blog::Post;
 
 // Main
 fn main() {
@@ -130,9 +133,21 @@ fn main() {
     //thread_example_one();
     //thread_example_two();
     //move_thread_example();
-    message_passing_example();
-    message_passing_example_two();
-    multi_message_sending_example();
-    mutex_example();
-    shared_mutex_thread_example();
-}
+    //message_passing_example();
+    //message_passing_example_two();
+    //multi_message_sending_example();
+    //mutex_example();
+    //shared_mutex_thread_example();
+
+    //blog.rs
+    let mut post = Post::new();
+
+    post.add_text("I ate a salad for lunch today");
+    assert_eq!("", post.content());
+
+    post.request_review();
+    assert_eq!("", post.content());
+
+    post.approve();
+    assert_eq!("I ate a salad for lunch today", post.content())
+;}
