@@ -19,6 +19,7 @@ mod reference_cycles;
 mod concurrency;
 mod object_oriented;
 mod blog;
+mod blog_implementation_two;
 
 use guessing_game::guessing_game;
 use fahrenheit_celcius::temp_converter;
@@ -53,6 +54,7 @@ use concurrency::
  shared_mutex_thread_example};
 
 use blog::Post;
+use blog_implementation_two::Post as newPost;
 
 // Main
 fn main() {
@@ -149,5 +151,16 @@ fn main() {
     assert_eq!("", post.content());
 
     post.approve();
-    assert_eq!("I ate a salad for lunch today", post.content())
+    assert_eq!("I ate a salad for lunch today", post.content());
+
+    //blog_implementation_two.rs
+    let mut post = newPost::new();
+
+    post.add_text("I ate a salad for lunch today");
+
+    let post = post.request_review();
+
+    let post = post.approve();
+
+    assert_eq!("I ate a salad for lunch today", post.content());
 ;}
