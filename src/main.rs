@@ -20,6 +20,7 @@ mod concurrency;
 mod object_oriented;
 mod blog;
 mod blog_implementation_two;
+mod patterns_and_matching;
 
 use guessing_game::guessing_game;
 use fahrenheit_celcius::temp_converter;
@@ -52,9 +53,13 @@ use concurrency::
  multi_message_sending_example,
  mutex_example,
  shared_mutex_thread_example};
-
 use blog::Post;
 use blog_implementation_two::Post as newPost;
+use patterns_and_matching::
+{if_else_else_if_let_example,
+ while_loop_example,
+ for_loop_example,
+ function_parameters_example};
 
 // Main
 fn main() {
@@ -142,25 +147,31 @@ fn main() {
     //shared_mutex_thread_example();
 
     //blog.rs
-    let mut post = Post::new();
+    //let mut post = Post::new();
 
-    post.add_text("I ate a salad for lunch today");
-    assert_eq!("", post.content());
+    //post.add_text("I ate a salad for lunch today");
+    //assert_eq!("", post.content());
 
-    post.request_review();
-    assert_eq!("", post.content());
+    //post.request_review();
+    //assert_eq!("", post.content());
 
-    post.approve();
-    assert_eq!("I ate a salad for lunch today", post.content());
+    //post.approve();
+    //assert_eq!("I ate a salad for lunch today", post.content());
 
     //blog_implementation_two.rs
-    let mut post = newPost::new();
+    //let mut post = newPost::new();
 
-    post.add_text("I ate a salad for lunch today");
+    //post.add_text("I ate a salad for lunch today");
 
-    let post = post.request_review();
+    //let post = post.request_review();
 
-    let post = post.approve();
+    //let post = post.approve();
 
-    assert_eq!("I ate a salad for lunch today", post.content());
-;}
+    //assert_eq!("I ate a salad for lunch today", post.content());
+
+    //patterns_and_matching.rs
+    if_else_else_if_let_example();
+    while_loop_example();
+    for_loop_example();
+    function_parameters_example()
+}
