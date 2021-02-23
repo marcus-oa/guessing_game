@@ -85,3 +85,92 @@ fn irrefutable_example() {
     }
 
 }
+
+//-------------------------------------------------------------------------------------------
+//---------------- ch18-03-pattern-syntax ---------------------
+//-------------------------------------------------------------------------------------------
+
+// useful if you want your code to take action
+// if it gets a particular concrete value
+fn matching_literals() {
+    let x = 1;
+
+    match x {
+        1 => println!("one"),
+        2 => println!("two"),
+        3 => println!("three"),
+        _ => println!("anything")
+    }
+}
+
+fn matching_named_variables() {
+    let x = Some(5);
+    let y = 10;
+
+    match x {
+        Some(50) => println!("Got 50"),
+        // binds to any Some so this line print
+        Some(y) => println!("Matched, y = {:?}", y),
+        _ => println!("Default case, x = {:?}", x),
+    }
+
+    // y binding in match statement gone at this point
+    // so prints outer x and y
+    println!("at the end: x = {:?}, y = {:?}", x, y)
+}
+
+// prints 'one or two' as
+// 1 matches 1 | 2
+fn matching_multiple_patterns() {
+    let x = 1;
+
+    match x {
+        1 | 2 => println!("one or two"),
+        3 => println!("three"),
+        _ => println!("anything")
+    }
+}
+
+fn matching_ranges() {
+    let x = 5;
+
+    match x {
+        // matches the range inclusive of 1 .. 5
+        // essentially the same as 1 | 2 | 3 | 4 | 5
+        1..=5 => println!("one through five"),
+        _ => println!("something else"),
+    }
+
+    let x = 'c';
+
+    match x {
+        // inclusion and ranges work with characters too!
+        'a'..='j' => println!("early ASCII letter"),
+        'k'..='z' => println!("later ASCII letter"),
+        _ => println!("something else"),
+    }
+}
+
+pub fn destructing_example() {
+    struct Point {
+        x: i32,
+        y: i32,
+    }
+
+    let p = Point { x: 0, y: 7 };
+
+    // her we use the let PATTERN = EXPRESSION syntax
+    // to have a and b bind to p's x and y values
+    // Note: Shorthand example used with long form commented out
+    // let Point { x: a, y: b } = p;
+    let Point {x, y} = p;
+    assert_eq!(0, x);
+    assert_eq!(7, y);
+
+    // matching destructed patterns below
+    match p {
+        Point {x, y: 0} => println!("On the x axis at {}", x),
+        Point {x: 0, y} => println!("On the y axis at {}", y),
+        Point {x, y} => println!("On neither axis: ({}, {})", x, y),
+    }
+}

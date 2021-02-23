@@ -59,7 +59,8 @@ use patterns_and_matching::
 {if_else_else_if_let_example,
  while_loop_example,
  for_loop_example,
- function_parameters_example};
+ function_parameters_example,
+ destructing_example};
 
 // Main
 fn main() {
@@ -173,5 +174,6 @@ fn main() {
     if_else_else_if_let_example();
     while_loop_example();
     for_loop_example();
-    function_parameters_example()
+    function_parameters_example();
+    destructing_example()
 }
