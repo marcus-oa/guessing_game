@@ -62,3 +62,26 @@ pub fn function_parameters_example() {
     let point = (3,5);
     point_coordinates(&point);
 }
+
+//-------------------------------------------------------------------------------------------
+//---------------- ch18-02-refutability ---------------------
+//-------------------------------------------------------------------------------------------
+
+fn irrefutable_example() {
+    let some_option_value: Option<i32> = None;
+
+    // doesn't compile as the None case isn't handled (and can't be)
+    // let Some(x) = some_option_value;
+
+    // compiles!
+    if let Some(x) = some_option_value {
+        println!("{}", x);
+    }
+
+    // equally, this compile but highlights that it isn't necessary
+    // as it doesn't make sense to use if let for an irrefutable pattern bind
+    if let x = 5 {
+        println!("{}", x)
+    }
+
+}
