@@ -174,3 +174,237 @@ pub fn destructing_example() {
         Point {x, y} => println!("On neither axis: ({}, {})", x, y),
     }
 }
+
+fn deconstructing_enums() {
+    enum Message {
+        Quit,
+        Move { x: i32, y: i32 },
+        Write(String),
+        ChangeColor(i32, i32, i32),
+    }
+
+    let msg = Message::ChangeColor(0, 160, 255);
+
+    // illustrating the different ways we can match on different enum
+    // variants
+    match msg {
+        Message::Quit => {
+            println!("The Quit variant has no data to destructure")
+        }
+        Message::Move { x ,y } => {
+            println!(
+                "Move in the x direction {} and in the y direction {}",
+                x, y
+            )
+        }
+        Message::Write(text) => {
+            println!("Text message: {}", text)
+        }
+        Message::ChangeColor(r, g, b) => {
+            println!(
+                "Change the color to red {}, green {}, and blue {}",
+                r, g, b
+            )
+        }
+    }
+}
+
+fn destructing_nested_structs() {
+    enum Colour {
+        Rgb(i32, i32, i32),
+        Hsv(i32, i32, i32),
+    }
+
+    enum Message {
+        Quit,
+        Move { x: i32, y: i32 },
+        Write(String),
+        // now a nested struct that uses
+        // the Colour enum struct
+        ChangeColor(Colour),
+    }
+
+    let msg = Message::ChangeColor(Colour::Hsv(0, 160, 255));
+
+    // See how we match on two different Colour variants here
+    // Example of matching on a nested struct
+    match msg {
+        Message::ChangeColor(Colour::Rgb(r, g, b)) => println!(
+            "Change the colour to red {}, green {}, blue {}",
+            r, g, b
+        ),
+        Message::ChangeColor(Colour::Hsv(h, s, v)) => println!(
+            "Change the colour to hue {}, saturation {}, and value {}",
+            h, s, v
+        ),
+        _ => (),
+    }
+}
+
+fn mix_and_match_destruct() {
+    struct Point {
+        x: i32,
+        y: i32,
+    }
+
+    // showing a complex mix and match to destruct the right-hand side expression
+    // into pattern on the left
+    let ((feet, inches), Point {x, y}) =
+        ((3, 10), Point { x: 3, y: -10});
+
+}
+
+fn ignoring_entire_values() {
+    // compile doesn't moan about unused params as it
+    // would for named parameters
+    fn foo(_: i32, y: i32) {
+        println!("This code only uses y parameter: {}", y)
+    }
+
+    // 3 is unused and ignored here
+    foo(3,4)
+}
+
+fn ignoring_part_values() {
+    let mut setting_value = Some(5);
+    let new_setting_value = Some(10);
+
+    // This match takes a while to understand but is fairly simple
+    // Business logic is to not overwrite an existing set of customization
+    // so if either case is None then set with new_setting_value
+    match (setting_value, new_setting_value) {
+        (Some(_), Some(_)) => {
+            println!("Can't overwrite an existing customized value")
+        }
+        _ => {
+            setting_value = new_setting_value
+        }
+    }
+
+    println!("setting is {:?}", setting_value);
+
+    // extended example
+    let number = (2, 4, 8, 16, 32);
+
+    // by matching against all numbers we can conveniently pick
+    // and choose which to name and match against
+    match number {
+        (first, _, third, _, fifth) => {
+            println!("Some numbers: {}, {}, {}", first, third, fifth)
+        }
+    }
+}
+
+fn ignoring_unused_variables() {
+    // the underscore removes the compiler warning
+    // usually used when prototyping ot starting
+    // out a project
+    let _x = 5;
+    let y = 10;
+
+    let s = Some(String::from("Hello!"));
+
+    // using an Some(_s) takes ownership so better to just use '_' here
+    // as shown below
+    if let Some(_) = s {
+        println!("Found a string")
+    }
+
+    println!("{:?}", s);
+}
+
+fn ignoring_remaining_parts() {
+    struct Point {
+        x: i32,
+        y: i32,
+        z: i32,
+    }
+
+    let origin = Point { x: 0, y: 0, z: 0};
+
+    // .. notation means we'll match x and ignore the rest of Point values
+    // without explicitly stating _ or named values to match
+    match origin {
+        Point {x, .. } => println!("x is {}", x),
+    }
+
+    let numbers = (2, 4, 8, 16, 32);
+
+    // .. can be used to match everything in-between as well
+    match numbers {
+        (first, .., last) =>  {
+            println!("Some numbers: {}, {}", first, last)
+        }
+    }
+
+    // the below is invalid as it's ambiguous: how many before and after do we match
+    // for example?
+    /*
+    match numbers {
+        (.., second, ..) => {
+            println!("Some numbers: {}", second)
+        }
+    }
+     */
+}
+
+fn extra_conditions_with_match() {
+    let num = Some(4);
+
+    match num {
+        // conditional as first match within clause
+        Some(x) if x < 5 => println!("less than five: {}", x),
+        Some(x) => println!("{}", x),
+        None => (),
+    }
+
+    let x = Some(10);
+    let y = 10;
+
+    match x {
+        Some(50) => println!("Got 50"),
+        // with this clause we can test if the outer variable y
+        // matches against the inner bound variable n which is x
+        // essentially comparing out x and y in the inner match
+        Some(n) if n == y => println!("Matched, n = {}", n),
+        _ => println!("Default case, x = {:?}", x),
+    }
+
+    println!("at the end: x = {:?}, y = {}", x, y);
+
+    // use of | (or) pattern match below
+    let x = 4;
+    let y = false;
+
+    match x {
+        // matches if x is 4, 5 or 6 AND and y is true
+        4 | 5 | 6 if y => println!("yes"),
+        _ => println!("no"),
+    }
+}
+
+// @ binding example
+// allows us to bind a variable AND test it matches some condition
+fn pattern_bindings() {
+    enum Message {
+        Hello { id: i32 },
+    }
+
+    let msg = Message::Hello { id: 5 };
+
+    match msg {
+        Message::Hello {
+            // id stored in a variable id_variables for later use
+            id: id_variable @ 3..=7,
+        } => println!("Found an id in range: {}", id_variable),
+        // no storage of id variable so can't be used
+        Message::Hello { id: 10..=12 } => {
+            println!("Found an id in another range")
+        },
+        // id is useable because of shorthand syntax
+        // but not usable above as we used some condition to test id
+        // and no @ binding to store said variable
+        Message::Hello { id } => println!("Found some other id: {}", id),
+    }
+
+}
