@@ -21,6 +21,7 @@ mod object_oriented;
 mod blog;
 mod blog_implementation_two;
 mod patterns_and_matching;
+mod unsafe_rust;
 
 use guessing_game::guessing_game;
 use fahrenheit_celcius::temp_converter;
@@ -61,6 +62,8 @@ use patterns_and_matching::
  for_loop_example,
  function_parameters_example,
  destructing_example};
+use unsafe_rust::{raw_pointers,static_variables};
+use std::os::macos::raw::stat;
 
 // Main
 fn main() {
@@ -171,9 +174,14 @@ fn main() {
     //assert_eq!("I ate a salad for lunch today", post.content());
 
     //patterns_and_matching.rs
-    if_else_else_if_let_example();
-    while_loop_example();
-    for_loop_example();
-    function_parameters_example();
-    destructing_example()
+    //if_else_else_if_let_example();
+    //while_loop_example();
+    //for_loop_example();
+    //function_parameters_example();
+    //destructing_example()
+
+
+    //unsafe_rust.rs
+    raw_pointers();
+    static_variables();
 }
