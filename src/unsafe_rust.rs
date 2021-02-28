@@ -17,7 +17,6 @@ pub fn raw_pointers() {
         println!("r1 is: {}", *r1);
         println!("r2 is: {}", *r2);
     }
-
 }
 
 fn unsafe_func_and_method() {

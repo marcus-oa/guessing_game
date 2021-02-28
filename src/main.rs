@@ -22,6 +22,7 @@ mod blog;
 mod blog_implementation_two;
 mod patterns_and_matching;
 mod unsafe_rust;
+mod advanced_traits;
 
 use guessing_game::guessing_game;
 use fahrenheit_celcius::temp_converter;
@@ -64,7 +65,12 @@ use patterns_and_matching::
  destructing_example};
 use unsafe_rust::{raw_pointers,static_variables};
 use std::os::macos::raw::stat;
-
+use advanced_traits::
+{test_point_addition,
+ calling_same_named_functions,
+ print_names,
+ test_fmt_and_print,
+ print_test_newtype};
 // Main
 fn main() {
     /* CHAPTER 3 EXERCISES
@@ -182,6 +188,13 @@ fn main() {
 
 
     //unsafe_rust.rs
-    raw_pointers();
-    static_variables();
+    //raw_pointers();
+    //static_variables();
+
+    //advanced_traits.rs
+    test_point_addition();
+    calling_same_named_functions();
+    print_names();
+    test_fmt_and_print();
+    print_test_newtype();
 }
