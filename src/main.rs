@@ -23,6 +23,7 @@ mod blog_implementation_two;
 mod patterns_and_matching;
 mod unsafe_rust;
 mod advanced_traits;
+mod advanced_types;
 
 use guessing_game::guessing_game;
 use fahrenheit_celcius::temp_converter;
