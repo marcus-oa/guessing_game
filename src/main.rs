@@ -24,6 +24,7 @@ mod patterns_and_matching;
 mod unsafe_rust;
 mod advanced_traits;
 mod advanced_types;
+mod advanced_functions_and_closures;
 
 use guessing_game::guessing_game;
 use fahrenheit_celcius::temp_converter;
@@ -72,6 +73,9 @@ use advanced_traits::
  print_names,
  test_fmt_and_print,
  print_test_newtype};
+use advanced_functions_and_closures::function_pointer_example;
+use crate::generics::largest_i32_using_func;
+
 // Main
 fn main() {
     /* CHAPTER 3 EXERCISES
@@ -193,9 +197,12 @@ fn main() {
     //static_variables();
 
     //advanced_traits.rs
-    test_point_addition();
-    calling_same_named_functions();
-    print_names();
-    test_fmt_and_print();
-    print_test_newtype();
+    //test_point_addition();
+    //calling_same_named_functions();
+    //print_names();
+    //test_fmt_and_print();
+    //print_test_newtype();
+
+    //advanced_functions_and_closures.rs
+    function_pointer_example();
 }
